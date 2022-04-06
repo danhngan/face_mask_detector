@@ -20,7 +20,12 @@ files = {
 #           {'name': 'with_mask', 'id':2},
 #           {'name': 'mask_weared_incorrect', 'id':3}]
 
-@st.cache
+
+def hash_model(model):
+    return 'modelObject'
+
+
+@st.cache(hash_funcs={keras.utils.object_identity.ObjectIdentityDictionary: hash_model})
 def load_n_restore(config_dir, ckpt_dir, ckpt_ver = 0):
     # Load
     config = config_util.get_configs_from_pipeline_file(config_dir)
