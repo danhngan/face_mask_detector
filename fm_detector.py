@@ -8,13 +8,13 @@ from matplotlib import pyplot as plt
 from PIL import Image
 import random
 paths = {
-    'tf2_ob': 'models',
-    'checkpoint': 'checkpoint',
-    'files': 'files'
+    'tf2_ob': 'workspace/models',
+    'checkpoint': 'workspace/face_mask_detector/checkpoint',
+    'files': 'workspace/face_mask_detector/files'
 }
 files = {
-    'labelmap': 'files/labelmap.pbtxt',
-    'config' : 'files/pipeline.config'
+    'labelmap': 'workspace/face_mask_detector/files/labelmap.pbtxt',
+    'config' : 'workspace/face_mask_detector/files/pipeline.config'
 }
 # labels = [{'name': 'without_mask', 'id':1},
 #           {'name': 'with_mask', 'id':2},
