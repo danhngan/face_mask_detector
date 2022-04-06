@@ -96,14 +96,15 @@ def main(flags):
     label_id_offset = 1
 
     try:
+        st.write('1')
         detector = load_n_restore(files['config'], paths['checkpoint'], 8)
-
+        st.write('2')
         img_np = load_img()
         if img_np:
             img_tensor = process_img(img_np)
-
+            st.write('3')
             detections = detect_fn(img_tensor, detector=detector)
-
+            st.write('4')
             num_detections = int(detections.pop('num_detections'))
             detections = {key: value[0, :num_detections].numpy()
                         for key, value in detections.items()}
@@ -112,7 +113,7 @@ def main(flags):
             # detection_classes should be ints.
             detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
 
-            label_id_offset = 1
+            st.write('5')
 
             plot_detections(
                 img_np,
