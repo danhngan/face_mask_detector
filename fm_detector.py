@@ -16,16 +16,9 @@ files = {
     'labelmap': 'workspace/face_mask_detector/files/labelmap.pbtxt',
     'config' : 'workspace/face_mask_detector/files/pipeline.config'
 }
-# labels = [{'name': 'without_mask', 'id':1},
-#           {'name': 'with_mask', 'id':2},
-#           {'name': 'mask_weared_incorrect', 'id':3}]
 
 
-def hash_model(model):
-    return 'modelObject'
-
-
-# @st.cache(hash_funcs={tf.keras.utils.object_identity.ObjectIdentityDictionary: hash_model})
+@st.cache(allow_output_mutation=True)
 def load_n_restore(config_dir, ckpt_dir, ckpt_ver = 0):
     # Load
     config = config_util.get_configs_from_pipeline_file(config_dir)
@@ -100,15 +93,15 @@ def main(flags):
     category_index = label_map_util.create_category_index_from_labelmap(files['labelmap'])
     label_id_offset = 1
 
-    st.write('1')
+    # st.write('1')
     detector = load_n_restore(files['config'], paths['checkpoint'], 8)
-    st.write('2')
+    # st.write('2')
     img_np = load_img()
     if img_np is not None:
         img_tensor = process_img(img_np)
-        st.write('3')
+        # st.write('3')
         detections = detect_fn(img_tensor, detector=detector)
-        st.write('4')
+        # st.write('4')
         num_detections = int(detections.pop('num_detections'))
         detections = {key: value[0, :num_detections].numpy()
                     for key, value in detections.items()}
@@ -117,7 +110,7 @@ def main(flags):
         # detection_classes should be ints.
         detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
 
-        st.write('5')
+        # st.write('5')
 
         plot_detections(
             img_np,
