@@ -25,7 +25,7 @@ def hash_model(model):
     return 'modelObject'
 
 
-@st.cache(hash_funcs={keras.utils.object_identity.ObjectIdentityDictionary: hash_model})
+# @st.cache(hash_funcs={tf.keras.utils.object_identity.ObjectIdentityDictionary: hash_model})
 def load_n_restore(config_dir, ckpt_dir, ckpt_ver = 0):
     # Load
     config = config_util.get_configs_from_pipeline_file(config_dir)
@@ -104,7 +104,7 @@ def main(flags):
     detector = load_n_restore(files['config'], paths['checkpoint'], 8)
     st.write('2')
     img_np = load_img()
-    if img_np:
+    if img_np is not None:
         img_tensor = process_img(img_np)
         st.write('3')
         detections = detect_fn(img_tensor, detector=detector)
