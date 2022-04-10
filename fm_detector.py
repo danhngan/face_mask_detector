@@ -46,7 +46,7 @@ def load_img():
         st.write(file_details)
         # Convert to ndarray
         img = Image.open(image_file)
-        return np.array(img)
+        return np.array(img)[:,:,:3]
     else:
         return None
 
